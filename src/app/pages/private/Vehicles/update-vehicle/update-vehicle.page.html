@@ -1,0 +1,304 @@
+<ion-content  overflow-scroll="true">
+  <ion-card>
+    <ion-card-header class="text-center">
+      <img alt="Vehicle" style="margin-left:100px;width: 70px; height: 70px;" [src]="GetIcon(vehicle.Icon)" />
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.REGISTRATION_NUMBER' | translate}} </ion-col>
+              <!-- <ion-col class="value" size="6"> {{vehicle.Registration_Number}} </ion-col> -->
+              <ion-col class="value" size="6">
+              <ion-input autocomplete="nope" [(ngModel)]="vehicle.Registration_Number"
+              placeholder=" {{'PARCEL.REGISTRATION_NUMBER' | translate}}">
+            </ion-input>
+            </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.PARCEL_TYPE' | translate}} </ion-col>
+              <ion-col class="value">
+                <ion-select (ionChange)="vehicleTypeChanged()" multiple="false" cancelText="Cancel" okText="Select" [(ngModel)]="vehicle.Vehicle_Type"
+                  placeholder=" {{'PARCEL.PARCEL_TYPE' | translate}}">
+                  <ion-select-option *ngFor="let vehicleType of vehicleTypes" value="{{ vehicleType }}">
+                    {{ vehicleType }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COMPANY' | translate}} </ion-col>
+              <ion-col class="value">
+                <ion-select multiple="false" cancelText="Cancel" okText="Select" [(ngModel)]="vehicle.Company"
+                  placeholder=" {{'PARCEL.COMPANY' | translate}}">
+                  <ion-select-option *ngFor="let company of AllCompanies" value="{{ company }}">
+                    {{ company }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.MAKE' | translate}} </ion-col>
+              <ion-col class="value">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Make"
+                placeholder=" {{'PARCEL.MAKE' | translate}}">
+              </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.MODEL' | translate}} </ion-col>
+              <ion-col class="value">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Model"
+                placeholder=" {{'PARCEL.MODEL' | translate}}">
+              </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COLOR' | translate}} </ion-col>
+            <ion-col>
+              <ion-input autocomplete="nope" [(ngModel)]="vehicle.Color"
+              placeholder=" {{'PARCEL.COLOR' | translate}}">
+              </ion-input>
+          </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='storefront-outline' slot="start"></ion-icon>
+        {{'PARCEL.POLICE_STATION_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.NAME_OF_POLICE_STATION' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Name_Of_Police_Station"
+                  placeholder=" {{'PARCEL.NAME_OF_POLICE_STATION' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.INVESTIGATION_OFFICER_NAME' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Investigation_Officer_Name"
+                  placeholder=" {{'PARCEL.INVESTIGATION_OFFICER_NAME' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.INVESTIGATION_OFFICER_NUMBER' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Investigation_Officer_Number"
+                  placeholder=" {{'PARCEL.INVESTIGATION_OFFICER_NUMBER' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='cog-outline' slot="start"></ion-icon>
+        {{'PARCEL.ENGINE_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.ENGINE_NUMNER' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Engine_Number"
+                  placeholder=" {{'PARCEL.ENGINE_NUMNER' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.CHASSIS_NUMBER' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.ChassisNumber"
+                  placeholder=" {{'PARCEL.CHASSIS_NUMBER' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='options-outline' slot="start"></ion-icon>
+        {{'PARCEL.THEFT_SEIZE_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.CR_NUMBER_SECTION' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.CR_Number_Section"
+                  placeholder=" {{'PARCEL.CR_NUMBER_SECTION' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.DATE_TIME_OF_THEFT' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-select multiple="false" cancelText="Cancel" okText="Select" [(ngModel)]="vehicle.Date_Time_of_Theft"
+                  placeholder=" {{'PARCEL.DATE_TIME_OF_THEFT' | translate}}">
+                  <ion-select-option *ngFor="let dayString of TheftDay" value="{{ dayString }}">
+                    {{ dayString }}
+                  </ion-select-option>
+                </ion-select>
+                <!-- <ion-input autocomplete="nope" [(ngModel)]="vehicle.Date_Time_of_Theft"
+                  placeholder=" {{'PARCEL.DATE_TIME_OF_THEFT' | translate}}">
+                </ion-input> -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.LOCATION_OF_THEFT_SEIZER' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Location_oF_Theft_Seizer"
+                  placeholder=" {{'PARCEL.LOCATION_OF_THEFT_SEIZER' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.CATEGORY' | translate}} </ion-col>
+              <ion-col class="value">
+                <ion-select multiple="false" cancelText="Cancel" okText="Select" [(ngModel)]="vehicle.Category"
+                  placeholder=" {{'PARCEL.CATEGORY' | translate}}">
+                  <ion-select-option *ngFor="let category of vehicleCategories" value="{{ category }}">
+                    {{ category }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='options-outline' slot="start"></ion-icon>
+        {{'PARCEL.OTHER_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COMMENTS' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Comments"
+                  placeholder=" {{'PARCEL.COMMENTS' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COMPLAINENT' | translate}} </ion-col>
+              <ion-col class="value" size="6">
+                <ion-input autocomplete="nope" [(ngModel)]="vehicle.Vehicle_owner_complainant"
+                  placeholder=" {{'PARCEL.COMPLAINENT' | translate}}">
+                </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-button  expand="block" (click)="goToVehicleList()">
+    <ion-icon slot="start" name="close"></ion-icon>
+    {{'BUTTONS.CANCEL' | translate}}
+  </ion-button>
+  <ion-button expand="block" (click)="UpdateButtonClicked()">
+    <ion-icon slot="start" name="create"></ion-icon>
+    {{'BUTTONS.UPDATE' | translate}}
+  </ion-button>
+</ion-footer>

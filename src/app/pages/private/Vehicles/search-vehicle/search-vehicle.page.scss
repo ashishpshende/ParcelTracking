@@ -1,0 +1,46 @@
+:host {
+    ion-content {
+         --background: url("/assets/bg20.JPG") 0 0/100% 100% no-repeat ;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        background-color: aliceblue;
+
+      }
+  }
+    .toolbar-backgorund  {
+      //--background: linear-gradient(180deg, var(--ion-color-dark), var(--ion-color-dark));
+      background-color: aliceblue;
+
+      color: black;
+    }
+.app-logo{
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.text-center
+{
+    text-align: center;
+}
+.search-button
+{
+    margin-top: 20px;
+}
+.search-button-field
+{
+    text-align: center;
+
+}
+.search-text
+{
+    color: black;
+}
+.validation-message
+{
+    color: red;
+    padding-left: 20 !important;
+}

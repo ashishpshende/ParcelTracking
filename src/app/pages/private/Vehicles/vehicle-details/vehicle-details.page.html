@@ -1,0 +1,225 @@
+<ion-content> 
+
+  <ion-card>
+    <ion-card-header class="text-center">
+
+      <!-- <ion-icon class="vehicle-icon" [name]="vehicle.Icon"></ion-icon> -->
+      <img alt="Vehicle" style="width: 70px; height: 70px;" [src]="GetIcon(vehicle.Icon)" />
+
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.REGISTRATION_NUMBER' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Registration_Number}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.PARCEL_TYPE' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Vehicle_Type}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COMPANY' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Company}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.MAKE' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Make}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.MODEL' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Model}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COLOR' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Color}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='storefront-outline' slot="start"></ion-icon>
+
+        {{'PARCEL.POLICE_STATION_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.NAME_OF_POLICE_STATION' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Name_Of_Police_Station}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.INVESTIGATION_OFFICER_NAME' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Investigation_Officer_Name}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.INVESTIGATION_OFFICER_NUMBER' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Investigation_Officer_Number}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='cog-outline' slot="start"></ion-icon>
+        {{'PARCEL.ENGINE_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.ENGINE_NUMNER' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Engine_Number}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.CHASSIS_NUMBER' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.ChassisNumber}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='options-outline' slot="start"></ion-icon>
+        {{'PARCEL.THEFT_SEIZE_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.CR_NUMBER_SECTION' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.CR_Number_Section}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.DATE_TIME_OF_THEFT' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Date_Time_of_Theft}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.LOCATION_OF_THEFT_SEIZER' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Location_oF_Theft_Seizer}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.CATEGORY' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Category}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon name='options-outline' slot="start"></ion-icon>
+        {{'PARCEL.OTHER_DETAILS' | translate}}
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COMMENTS' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Comments}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">{{'PARCEL.COMPLAINENT' | translate}} </ion-col>
+              <ion-col class="value" size="6"> {{vehicle.Vehicle_owner_complainant}} </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+<ion-footer>
+  <ion-button expand="block" (click)="goToVehicleList()">
+    <ion-icon slot="start" name="close"></ion-icon>
+    {{'BUTTONS.CANCEL' | translate}}
+  </ion-button>
+  <ion-button *ngIf="showEditButton" expand="block" (click)="EditButtonClicked()" >
+    <ion-icon slot="start" name="create"></ion-icon>
+    {{'BUTTONS.EDIT' | translate}}
+  </ion-button>
+</ion-footer>

@@ -1,0 +1,66 @@
+<ion-content>
+  <ion-card class="empty-record-card" *ngIf="totalRecords === 0">
+    <ion-card-header class="empty-record-card-header">
+      <ion-icon name="sad-sharp" class="empty-record-card-icon"></ion-icon>
+    </ion-card-header>
+    <ion-card-content class="empty-record-card-content">
+      {{'EMPTY_RECORDS.TITLE' | translate}}
+      <p>
+        {{'EMPTY_RECORDS.SUBTITLE' | translate}}
+      </p>
+      <p>
+
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-list class="vehicle-results" *ngIf="totalRecords >= 1">
+    <ion-list-header class="vehicle-results-list-header"> Showing Results skipping {{skip}} records</ion-list-header>
+    <ion-item class="vehicle-result-cell" *ngFor="let vehicle of vehicles">
+      <ion-avatar slot="start" (click)="VehicleSelcted(vehicle)">
+        <!-- <ion-icon class="list-image" [name]="vehicle.Icon"></ion-icon> -->
+        <img alt="Vehicle" [src]="GetIcon(vehicle.Icon)" />
+      </ion-avatar>
+      <ion-label (click)="VehicleSelcted(vehicle)">
+        <h2>{{vehicle.Registration_Number}}</h2>
+        <h3>{{vehicle.Vehicle_Type}}</h3>
+        <p>{{vehicle.Company}} - {{vehicle.Model}} - {{vehicle.Make}} - {{vehicle.Color}}</p>
+        <p>IO - {{vehicle.Investigation_Officer_Name}} ({{vehicle.Investigation_Officer_Number}})</p>
+        <p><span>TimeStamp: {{vehicle.Timestamp}} </span> </p>
+      </ion-label>
+      <ion-icon *ngIf="showEditButton" name="create-sharp" slot="end" (click)="EditButtonClicked(vehicle)"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="open-space">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <div  class="text-center pagination-area">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngIf="allowFirst" class="pagination-button" (click)="FirstClicked()">
+          <<
+        </ion-col>
+        <ion-col *ngIf="allowPrev" class="pagination-button" (click)="PrevClicked()">
+          <
+        </ion-col>
+        <ion-col *ngFor="let page of pages" class="pagination-button">
+          <ion-button [disabled]="page===currentPage" (click)="PageClicked(page)">
+            {{page}}
+          </ion-button>
+
+        </ion-col>
+        <ion-col  *ngIf="allowNext" class="pagination-button" (click)="NextClicked()">
+          >
+        </ion-col>
+        <ion-col  *ngIf="allowLast" class="pagination-button" (click)="LastClicked()">
+          >>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-footer>
