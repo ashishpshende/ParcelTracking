@@ -602,3 +602,8 @@ www/vendor.js
 www/vendor.js.map
 config.xml
 platforms/android/*
+.DS_Store
+publickey
+publickey.pub
+.gitignore
+src/.DS_Store
