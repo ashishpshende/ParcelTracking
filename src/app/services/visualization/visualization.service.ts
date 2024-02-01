@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable max-len */
 import { Injectable } from '@angular/core';
-import { SearchFilter } from 'src/app/models/SearchFilter';
-import { Vehicle } from 'src/app/models/Vehicle';
 import { environment } from 'src/environments/environment';
 import { NetworkService } from '../network/network.service';
 import { SecurityService } from '../security/security.service';
-import { VehicleService, VehicleURLs } from '../vehicle/vehicle.service';
 
 
 export class VisualizationURLs
@@ -25,18 +22,7 @@ export class VisualizationService
       this.LoadMetaData();
     }
 
-    LoadMetaData(){
-      this.networkService.get(VehicleURLs.LIST, response=>{
-        response.forEach(row => {
-          switch(row.Type){
-            case 'Visualization':
-                this.showBy.push(row.Value);
-              break;
-          }
-        });
-      },error=>{
-          console.log('Error:' + error);
-      });
+    LoadMetaData(){      
     }
     loadVisualization(selectedField: string, success: (any), failure: (any)){
       this.networkService.get(VisualizationURLs.GET_LOCALIZATION_BY_SHOW_BY_FIELD_APP_SCRIPT.replace('{SHOW_BY}', selectedField),response=>{

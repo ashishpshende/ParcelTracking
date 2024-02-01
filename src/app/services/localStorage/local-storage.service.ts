@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Platform } from '@ionic/angular';
@@ -39,7 +40,7 @@ export class LocalStorageService {
           //load User Object
           this.getItem(KeywordConstants.USER_OBJECT).then(userInfo => {
               this.StoredPreference.LoggedInUser = new User(userInfo);
-              this.StoredPreference.LoggedInUserRowIndex = this.StoredPreference.LoggedInUser.rowIndex;
+              this.StoredPreference.LoggedInUserId = this.StoredPreference.LoggedInUser.id;
               this.StoredPreference.LoggedInUserName = this.StoredPreference.LoggedInUser.UserName;
               this.StoredPreference.LoggedInUserEmail = this.StoredPreference.LoggedInUser.Email;
               success()
@@ -52,14 +53,14 @@ export class LocalStorageService {
       }
       else {
         this.StoredPreference.LoggedInStatus = false;
-        this.CreateAndAssigneEmptyUser()
-        success()
+        this.CreateAndAssigneEmptyUser();
+        success();
       }
     });
   }
   CreateAndAssigneEmptyUser() {
     this.StoredPreference.LoggedInUser = new User(JSON.parse("{}"));
-    this.StoredPreference.LoggedInUserRowIndex = -1;
+    this.StoredPreference.LoggedInUserId = -1;
     this.StoredPreference.LoggedInUserEmail = "";
     this.StoredPreference.LoggedInUserName = "";
 

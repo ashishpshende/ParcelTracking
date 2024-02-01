@@ -93,8 +93,8 @@ export class CreateUserPage implements OnInit {
   SaveUser(succes: (any), failure: (any)) {
     this.loaderService.customLoader("Saving User...", 10000);
     this.user.Password = "password";
-    this.user.CreatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
-    this.user.UpdatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
+    this.user.createdOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
+    this.user.updatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
     this.user.ResetRequired = true;
     this.userService.SaveUser(this.user, results => {
 

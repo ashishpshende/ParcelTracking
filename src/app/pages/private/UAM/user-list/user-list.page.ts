@@ -191,7 +191,7 @@ export class UserListPage implements OnInit {
     this.userService.selectedUser = selectedUser;
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        rowIndex: selectedUser.rowIndex,
+        Id: selectedUser.id,
         ts: new Date().getMilliseconds()
       }
     };
@@ -201,7 +201,7 @@ export class UserListPage implements OnInit {
   EditButtonClicked(selectedUser) {
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        rowIndex: selectedUser.rowIndex,
+        Id: selectedUser.id,
         ts: new Date().getMilliseconds()
       }
     };

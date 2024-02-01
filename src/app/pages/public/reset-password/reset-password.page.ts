@@ -136,7 +136,7 @@ export class ResetPasswordPage implements OnInit,AfterViewInit {
       this.loading.present();
       this.userService.checkUser(this.email, this.oldPassword, response => {
 
-        this.userService.ResetPassword(response.rowIndex, this.newPassword, response => {
+        this.userService.ResetPassword(response.id, this.newPassword, response => {
           this.loading.dismiss();
           this.passwordResetStatus = true;
           this.presentAlert(this.languageService.translate('RESET_PASSWORD.SUCCESS'), this.languageService.translate('RESET_PASSWORD.SUCCESS_MESSAGE'));

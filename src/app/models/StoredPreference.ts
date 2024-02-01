@@ -6,7 +6,7 @@ import { User } from './user';
 export class StoredPreference {
     public LoggedInStatus: boolean;
     public LoggedInUser: User;
-    public LoggedInUserRowIndex: number;
+    public LoggedInUserId: number;
     public LoggedInUserEmail: string;
     public LoggedInUserName: string;
     public SelectedLanguage: string;

@@ -18,12 +18,12 @@ export class AuthorizationService {
    
   storeUser(user:User)
   {
-    localStorage.setItem("USER_NAME",user.Name.toString());
+    localStorage.setItem("USER_NAME",user.name.toString());
 
    
     if(user.Account !=null && user.Account != undefined)
     {
-      localStorage.setItem("ACCOUNT_NAME",user.Account.Name.toString());
+      localStorage.setItem("ACCOUNT_NAME",user.Account.name.toString());
     }
    
 
@@ -36,7 +36,7 @@ export class AuthorizationService {
     {
      
       user = new User(HelperService.EmptyJSON());
-      user.Name = localStorage.getItem("USER_NAME");
+      user.name = localStorage.getItem("USER_NAME");
       this.loggedInUser = user;
     }
 

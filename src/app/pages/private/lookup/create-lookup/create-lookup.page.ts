@@ -7,9 +7,6 @@ import { NavigationExtras, Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { LanguageService } from 'src/app/services/language/language.service';
 import { LoaderService } from 'src/app/services/loader/loader.service';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
-import { HelperService } from 'src/app/services/helpers/helper-service';
-import { ScheduleSearch } from 'src/app/models/ScheduleSearch';
 
 @Component({
   selector: 'app-create-lookup',
@@ -20,25 +17,18 @@ export class CreateLookupPage implements OnInit {
   public enableSave=false;
   public emailValidationMessage='';
   public phoneNumberValidationMessage='';
-  public scheduleSearch: ScheduleSearch;
   public genders: Array<string> = [];
   public roles: Array<string> = [];
   public statuses: Array<string> = [];
   public showRegistrationValidationMessage = false;
   constructor(
     public loadingCtrl: LoadingController,
-    private vehicleService: VehicleService,
     public alertController: AlertController,
     private languageService: LanguageService,
     private router: Router,
     private loaderService: LoaderService
   ) {
-    this.scheduleSearch = new ScheduleSearch(JSON.parse('{}'));
 
-    this.scheduleSearch.VehicleRegistrationNumber = '';
-    this.scheduleSearch.VehicleChassisNumber = '';
-    this.scheduleSearch.VehicleEngineNumber = '';
-    this.scheduleSearch.Found = false;
   }
   ngOnInit() {
     this.enableSave = false;
@@ -47,14 +37,6 @@ export class CreateLookupPage implements OnInit {
   }
   SaveScheduleSearch(succes: (any), failure: (any)) {
     this.loaderService.customLoader('Saving Schedule Search...', 10000);
-    this.scheduleSearch.CreatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
-    this.scheduleSearch.UpdatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
-    this.vehicleService.SaveScheduleSearch(this.scheduleSearch, results => {
-      this.goToScheduleSearchList();
-      this.loaderService.dismissLoader();
-    }, error => {
-      this.loaderService.dismissLoader();
-    });
   }
   goToScheduleSearchList()
   {
@@ -67,17 +49,7 @@ export class CreateLookupPage implements OnInit {
   }
 
    SaveButtonClicked() {
-    if (this.scheduleSearch.VehicleRegistrationNumber == null || this.scheduleSearch.VehicleRegistrationNumber === '') {
-      this.showRegistrationValidationMessage = true;
-    }
-    else {
-      this.SaveScheduleSearch(success => {
-        this.goToScheduleSearchList();
-        }, failure => {
-          this.presentAlert(this.languageService.translate('CREATE_LOOKUP_PAGE.SAVE_FAILED'), this.languageService.translate('CREATE_LOOKUP_PAGE.SAVE_FAILED_MESSAGE'));
-        });
-      this.showRegistrationValidationMessage = false;
-    }
+
   }
 
   //Alerts
@@ -86,7 +58,7 @@ export class CreateLookupPage implements OnInit {
       cssClass: 'app-alert-class',
       header: headerTitle,
       subHeader: '',
-      message: message,
+      message,
       buttons: [this.languageService.translate('BUTTONS.OK')]
     });
 

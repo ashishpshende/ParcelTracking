@@ -5,14 +5,9 @@ import { NavigationEnd, NavigationExtras, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { LocalStorageService } from 'src/app/services/localStorage/local-storage.service';
-import { UserService } from 'src/app/services/user/user.service';
-import { KeywordConstants } from 'src/assets/constants/constants';
 import { AlertController, IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
-import { ScheduleSearch } from 'src/app/models/ScheduleSearch';
 import { LanguageService } from 'src/app/services/language/language.service';
-import { Vehicle } from 'src/app/models/Vehicle';
 
 @Component({
   selector: 'app-lookup-list',
@@ -21,32 +16,28 @@ import { Vehicle } from 'src/app/models/Vehicle';
 })
 export class LookupListPage implements OnInit {
   public loggedInUser: User;
-  public scheduleSearch: ScheduleSearch[];
-  public selectedScheduleSearch: ScheduleSearch;
-  public skip: number = 0;
-  public totalRecords: number = -1;
-  public totalPages: number = -1;
-  public countPerPage: number = 10;
+  public skip = 0;
+  public totalRecords = -1;
+  public totalPages = -1;
+  public countPerPage = 10;
   public limit: number = this.countPerPage;
-  public currentPage: number = 1;
+  public currentPage = 1;
   public pages: number[];
-  public showPagination: boolean = false;
+  public showPagination = false;
   public editUserIcon = '';
-  public searchToggle: boolean = false;
-  public searchText: string = '';
-  public vehicle: Vehicle;
-  public allowNext: boolean = false;
-  public allowPrev: boolean = false;
-  public allowFirst: boolean = false;
-  public allowLast: boolean = false;
+  public searchToggle = false;
+  public searchText = '';
+  public allowNext = false;
+  public allowPrev = false;
+  public allowFirst = false;
+  public allowLast = false;
 
-  constructor(private vehicleService: VehicleService,
+  constructor(
     public loaderService: LoaderService,
     private router: Router,
     private localStorageService: LocalStorageService,
     private languageService: LanguageService,
     public alertController: AlertController) {
-    this.scheduleSearch = new Array<ScheduleSearch>();
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
       }
@@ -58,14 +49,8 @@ export class LookupListPage implements OnInit {
     this.loadScheduleSearch();
   }
 
-  DeleteSSearch(succes: (any), failure: (any)) {
+  deleteSearch(succes: (any), failure: (any)) {
     this.loaderService.customLoader('Deleting Schedule Search...', 10000);
-    this.vehicleService.deleteScheduleSearch(this.selectedScheduleSearch, results => {
-      this.loadScheduleSearch();
-      this.loaderService.dismissLoader();
-    }, error => {
-      this.loaderService.dismissLoader();
-    });
   }
 
   //Data loaders
@@ -73,38 +58,19 @@ export class LookupListPage implements OnInit {
 
     this.loaderService.customLoader('Loading Schedule Search...', 50000);
 
-    //if (this.searchText !== '') {
-      this.vehicleService.listBykeyword(this.searchText, this.skip, this.limit, async results => {
-        this.handleResponse(results);
-        this.loaderService.dismissLoader();
-      }, error => {
 
-        this.loaderService.dismissLoader();
-      });
   }
 
-  deleteSchduleSearch(sSearch: ScheduleSearch){
-    this.selectedScheduleSearch = sSearch;
-    this.presentAlert(this.languageService.translate('LOOKUP_LIST_PAGE.DELETE_TITLE'), this.languageService.translate('LOOKUP_LIST_PAGE.DELETE_SCHEDULE_SEARCH_MESSAGE'));
-  }
+ 
 
-  editScheduleSearch(sSearch: ScheduleSearch){
-    this.vehicleService.selectedSchduleSearch = sSearch;
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        rowIndex: sSearch.rowIndex,
-        ts: new Date().getMilliseconds()
-      }
-    };
-    this.router.navigate(['home/update-lookup'], navigationExtras);
-  }
+ 
 
   async presentAlert(headerTitle = this.languageService.translate('LOGIN.ERROR_ALERT_TITLE'), message = this.languageService.translate('LOGIN.ERROR_INVALID_CREDENTIALS_MESSAGE')) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: headerTitle,
       subHeader: '',
-      message: message,
+      message,
       buttons: [
         {
           text: this.languageService.translate('BUTTONS.YES'),
@@ -126,25 +92,10 @@ export class LookupListPage implements OnInit {
     const { role } = await alert.onDidDismiss();
   }
   deleteScheduleSearch() {
-    this.loaderService.customLoader('Deleting Schedule Search...', 10000);
-    this.vehicleService.deleteScheduleSearch(this.selectedScheduleSearch, results => {
-      this.loadScheduleSearch();
-      this.loaderService.dismissLoader();
-    }, error => {
-      this.loaderService.dismissLoader();
-    });
+   
   }
 
   handleResponse(response) {
-    this.scheduleSearch = new Array<ScheduleSearch>();
-    if (response.results.length > 10){
-      this.showPagination = true;
-    }
-    response.results.forEach(element => {
-        let vehi = new ScheduleSearch(element);
-        this.scheduleSearch.push(vehi);
-    });
-
     this.pages = new Array();
 
     if(response.totalRecords<10)
@@ -158,7 +109,7 @@ export class LookupListPage implements OnInit {
     }
     else
     {
-      this.totalPages = Math.ceil(response.totalRecords / 10)
+      this.totalPages = Math.ceil(response.totalRecords / 10);
 
       if (this.totalPages > 5) {
         if (this.currentPage === this.totalPages) {
@@ -216,54 +167,29 @@ export class LookupListPage implements OnInit {
   SearchToggleButtonClicked() {
     this.searchToggle = !this.searchToggle;
   }
-  FilterButtonClicked() {
+  filterButtonClicked() {
 
   }
-  SearchTextButtonClicked() {
-    this.skip = 0;
-    this.currentPage = 1;
-    if (this.searchText !== '')
-      this.loadScheduleSearch();
+  searchTextButtonClicked() {
+   
   }
 
 
 
 
-  //Event Handlers
-  userSelected(selectedSchSearch: ScheduleSearch) {
-    if(selectedSchSearch.Found){
-      this.loaderService.customLoader('Loading Vehicle Details...', 10000);
-      this.vehicleService.read(selectedSchSearch.VehicleRegistrationNumber.toString(), resp => {
-        this.vehicle = new Vehicle(resp.result[0]);
-        if(this.vehicle.Registration_Number.length > 0){
-          this.vehicleService.selectedVehicle = this.vehicle;
-          const navigationExtras: NavigationExtras = {
-            queryParams: {
-              rowIndex: this.vehicle.rowIndex,
-              ts: new Date().getMilliseconds()
-            }
-          };
-          this.router.navigate(['home/vehicle-details'], navigationExtras);
-        }
-        this.loaderService.dismissLoader();
-      }, error => {
-        this.loaderService.dismissLoader();
-      });
-    }
+  
 
-  }
-
-  EditButtonClicked(selectedSchduleSearch) {
+  editButtonClicked(selectedSchduleSearch) {
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        rowIndex: selectedSchduleSearch.rowIndex,
+        Id: selectedSchduleSearch.id,
         ts: new Date().getMilliseconds()
       }
     };
     this.router.navigate(['home/update-user'], navigationExtras);
   }
 
-  GetIcon(found) {
+  getIcon(found) {
     if(found){
       return '/assets/icon/greendot.png';
     }

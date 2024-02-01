@@ -9,7 +9,6 @@ import { LocalStorageService } from 'src/app/services/localStorage/local-storage
 import { UserService } from 'src/app/services/user/user.service';
 import { KeywordConstants } from 'src/assets/constants/constants';
 import {BackgroundFetch} from '@transistorsoft/capacitor-background-fetch';
-import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 import {LocalNotificationsPlugin, LocalNotifications, Attachment, ActionPerformed} from '@capacitor/local-notifications';
 
 @Component({
@@ -28,7 +27,6 @@ export class DashboardPage implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     public loadingController: LoadingController,
     public alertController: AlertController,
-    private vehicleService: VehicleService,
     private platform: Platform) {
     this.loggedInUser = new User(JSON.parse('{}'));
 
@@ -78,23 +76,6 @@ export class DashboardPage implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loggedInUser = this.localStorageService.StoredPreference.LoggedInUser;
   }
-
-  ngAfterContentInit() {
-    if(this.loggedInUser.Role ==='Admin' || this.loggedInUser.Role ==='SuperAdmin'){
-      LocalNotifications.requestPermissions();
-      this.checkScheduleSearch(res=>{
-        if(res){
-          this.generateNotification();
-          console.log('CheckScheduleSearch notification triggred after content init: ' + res);
-        }
-        this.initBackgroundFetch();
-      },error=>{
-        console.log('CheckScheduleSearch result: ' + error);
-        this.initBackgroundFetch();
-      });
-    }
-  }
-
   async initBackgroundFetch() {
     const status = await BackgroundFetch.configure({
       minimumFetchInterval: 15,
@@ -143,12 +124,7 @@ export class DashboardPage implements OnInit, AfterViewInit {
   // }
 
   checkScheduleSearch(success: (any), failure: (any)){
-    this.vehicleService.checkScheduleSearchForNotification(result => {
-      success(result);
-    }, error => {
-      console.log(error);
-      failure(false);
-    });
+
   }
 
   generateNotification(){
@@ -175,39 +151,33 @@ export class DashboardPage implements OnInit, AfterViewInit {
   }
 
   //Click Events
-  SearchTileClicked() {
-    this.router.navigate(['/home/search-vehicle']);
+  searchTileClicked() {
+    this.router.navigate(['/home/search-parcel']);
   }
-  AddVehicleTileClicked() {
-    this.router.navigate(['/home/create-vehicle']);
+  addParcelTileClicked() {
+    this.router.navigate(['/home/create-parcel']);
   }
-  UsersTileClicked() {
+  usersTileClicked() {
     this.router.navigate(['/home/user-list']);
   }
-  SettingsTileClicked() {
+  settingsTileClicked() {
     this.router.navigate(['/home/settings']);
   }
+  visualizationTileClicked(){}
 
-  ScheduledSearchTileClicked() {
-    this.router.navigate(['/home/lookup-list']);
-  }
+
   logout() {
     this.router.navigate(['login']);
   }
-  VisualizationTileClicked(){
-    this.router.navigate(['/home/visualization']);
-  }
-  NotificationsTileClicked()
-  {
-    this.generateNotification();
-  }
+
+
   //Alerts
   async presentAlert(headerTitle = this.languageService.translate('LOGIN.ERROR_ALERT_TITLE'), message = this.languageService.translate('LOGIN.ERROR_INVALID_CREDENTIALS_MESSAGE')) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: headerTitle,
       subHeader: '',
-      message: message,
+      message,
       buttons: [
         {
           text: this.languageService.translate('BUTTONS.OK'),

@@ -63,18 +63,6 @@ const routes: Routes = [
   {
     path: 'update-lookup',
     loadChildren: () => import('./pages/private/lookup/update-lookup/update-lookup.module').then( m => m.UpdateLookupPageModule)
-  },
-  {
-    path: 'parcel-list',
-    loadChildren: () => import('./pages/private/parcels/parcel-list/parcel-list.module').then( m => m.ParcelListPageModule)
-  },
-  {
-    path: 'parcel-details',
-    loadChildren: () => import('./pages/private/parcels/parcel-details/parcel-details.module').then( m => m.ParcelDetailsPageModule)
-  },
-  {
-    path: 'parcel-update',
-    loadChildren: () => import('./pages/private/parcels/parcel-update/parcel-update.module').then( m => m.ParcelUpdatePageModule)
   }
 
 ];

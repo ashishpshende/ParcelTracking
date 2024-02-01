@@ -22,11 +22,6 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
       },
       {
-        path: 'search-vehicle',
-        loadChildren: () => import('../Vehicles/search-vehicle/search-vehicle.module').then( m => m.SearchVehiclePageModule),
-        canActivate: [AuthGuardService],
-      },
-      {
         path: 'user-list',
         loadChildren: () => import('../UAM/user-list/user-list.module').then( m => m.UserListPageModule),
         canActivate: [AuthGuardService],
@@ -51,11 +46,6 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
       },
       {
-        path: 'vehicle-list',
-        loadChildren: () => import('../Vehicles/vehicle-list/vehicle-list.module').then( m => m.VehicleListPageModule),
-        canActivate: [AuthGuardService],
-      },
-      {
         path: 'lookup-list',
         loadChildren: () => import('../lookup/lookup-list/lookup-list.module').then( m => m.LookupListPageModule),
         canActivate: [AuthGuardService],
@@ -71,29 +61,25 @@ const routes: Routes = [
         canActivate: [AuthGuardService],
       },
       {
-        path: 'search-results-vehicle-list',
-        loadChildren: () => import('../Vehicles/search-results-vehicle-list/search-results-vehicle-list.module').then( m => m.SearchResultsVehicleListPageModule),
-        canActivate: [AuthGuardService],
-      },
-      {
-        path: 'create-vehicle',
-        loadChildren: () => import('../Vehicles/create-vehicle/create-vehicle.module').then( m => m.CreateVehiclePageModule),
-        canActivate: [AuthGuardService],
-      },
-      {
-        path: 'update-vehicle',
-        loadChildren: () => import('../Vehicles/update-vehicle/update-vehicle.module').then( m => m.UpdateVehiclePageModule),
-        canActivate: [AuthGuardService],
-      },
-      {
-        path: 'vehicle-details',
-        loadChildren: () => import('../Vehicles/vehicle-details/vehicle-details.module').then( m => m.VehicleDetailsPageModule),
-        canActivate: [AuthGuardService],
-      },
-      {
         path: 'settings',
         loadChildren: () => import('../settings/settings/settings.module').then( m => m.SettingsPageModule),
         canActivate: [AuthGuardService],
+      },
+      {
+        path: 'parcel-list',
+        loadChildren: () => import('../parcels/parcel-list/parcel-list.module').then( m => m.ParcelListPageModule)
+      },
+      {
+        path: 'parcel-details',
+        loadChildren: () => import('../parcels/parcel-details/parcel-details.module').then( m => m.ParcelDetailsPageModule)
+      },
+      {
+        path: 'update-parcel',
+        loadChildren: () => import('../parcels/update-parcel/update-parcel.module').then( m => m.UpdateParcelPageModule)
+      },
+      {
+        path: 'create-parcel',
+        loadChildren: () => import('../parcels/create-parcel/create-parcel.module').then( m => m.CreateParcelPageModule)
       }
       ]
   },

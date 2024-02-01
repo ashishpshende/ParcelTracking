@@ -46,52 +46,54 @@ export class UpdateUserPage implements OnInit,AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      var rowIndex = Number.parseInt(params["rowIndex"]);
-      this.loadUserDetails(rowIndex)
+      const id = Number.parseInt(params.Id, 10);
+      this.loadUserDetails(id);
     });
   }
-  loadUserDetails(rowIndex: number)
+  loadUserDetails(id: number)
   {
     this.loaderService.customLoader("Loading User Details...", 10000);
-    this.userService.readByIndex(rowIndex,resp => {
+    this.userService.readById(id,resp => {
       this.user = new User(resp.result[0]);
       this.user.Icon ="person-sharp";
-      //this.userService.selectedUser.clear();
       this.loaderService.dismissLoader();
-    }, error => {
+    }, _error => {
       this.loaderService.dismissLoader();
     });
   }
   goToUserList()
   {
     this.userService.selectedUser = this.user;
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: {
         ts: new Date().getMilliseconds()
       }
     };
     this.router.navigate(["home/user-list"], navigationExtras);
   }
-  UpdateButtonClicked()
+  updateButtonClicked()
   {
-    if (this.Validate()) {
+    if (this.validate()) {
       this.checkEmailExistance(
-        existinguser => {
-          this.presentAlert(this.languageService.translate("SIGN_UP.ALREADY_REGISTERED"), this.languageService.translate("SIGN_UP.USER_WITH_EMAIL_ALREADY_EXISTS"))
+        _existinguser => {
+          this.presentAlert(this.languageService.translate("SIGN_UP.ALREADY_REGISTERED"),
+          this.languageService.translate("SIGN_UP.USER_WITH_EMAIL_ALREADY_EXISTS"));
         },
 
         absent => {
 
 
-          this.checkUserNameExistance(existinguser => {
-            this.presentAlert(this.languageService.translate("SIGN_UP.ALREADY_REGISTERED"), this.languageService.translate("SIGN_UP.USER_WITH_USERNAME_ALREADY_EXISTS"))
+          this.checkUserNameExistance(_existinguser => {
+            this.presentAlert(this.languageService.translate("SIGN_UP.ALREADY_REGISTERED"),
+             this.languageService.translate("SIGN_UP.USER_WITH_USERNAME_ALREADY_EXISTS"));
 
-          }, absent => {
+          }, _absent => {
 
-            this.UpdateUser(success => {
+            this.updateUser(_success => {
               this.goToUserList();
-            }, failure => {
-              this.presentAlert(this.languageService.translate("SIGN_UP.REGISTRATION_FAILED"), this.languageService.translate("SIGN_UP.REGISTRATION_FAILED_MESSAGE"))
+            }, _failure => {
+              this.presentAlert(this.languageService.translate("SIGN_UP.REGISTRATION_FAILED"),
+              this.languageService.translate("SIGN_UP.REGISTRATION_FAILED_MESSAGE"));
 
             });
 
@@ -100,7 +102,8 @@ export class UpdateUserPage implements OnInit,AfterViewInit {
 
     }
     else {
-      this.presentAlert(this.languageService.translate("SIGN_UP.EMPTY_DETAILS"), this.languageService.translate("SIGN_UP.EMPTY_DETAILS_MESSAGE"))
+      this.presentAlert(this.languageService.translate("SIGN_UP.EMPTY_DETAILS"),
+       this.languageService.translate("SIGN_UP.EMPTY_DETAILS_MESSAGE"));
     }
 
   }
@@ -108,11 +111,11 @@ export class UpdateUserPage implements OnInit,AfterViewInit {
     this.loaderService.customLoader("Checking for Email...", 10000);
     this.userService.readByEmail(this.user.Email, results => {
       this.loaderService.dismissLoader();
-      var occurance = 0;
+      let occurance = 0;
       if(results.length>0)
       {
         results.forEach(user => {
-          if(this.user.Email.toLowerCase() === user.Email.toLowerCase() && this.user.rowIndex !== user.rowIndex)
+          if(this.user.Email.toLowerCase() === user.Email.toLowerCase() && this.user.id !== user.id)
           {
             occurance++;
           }
@@ -130,7 +133,7 @@ export class UpdateUserPage implements OnInit,AfterViewInit {
       {
         absent();
       }
-    }, error => {
+    }, _error => {
       this.loaderService.dismissLoader();
       absent();
     });
@@ -139,11 +142,11 @@ export class UpdateUserPage implements OnInit,AfterViewInit {
     this.loaderService.customLoader("Checking for User Name...", 10000);
     this.userService.readByUserName(this.user.UserName, results => {
       this.loaderService.dismissLoader();
-      var occurance = 0;
+      let occurance = 0;
       if(results.length>0)
       {
         results.forEach(user => {
-          if(this.user.UserName === user.UserName && this.user.rowIndex !== user.rowIndex)
+          if(this.user.UserName === user.UserName && this.user.id !== user.id)
           {
             occurance++;
           }
@@ -161,24 +164,24 @@ export class UpdateUserPage implements OnInit,AfterViewInit {
       {
         absent();
       }
-    }, error => {
+    }, _error => {
       this.loaderService.dismissLoader();
       absent();
     });
   }
-  UpdateUser(succes: (any), failure: (any)) {
+  updateUser(_succes: (any), _failure: (any)) {
     this.loaderService.customLoader("Saving User...", 10000);
-    this.user.UpdatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
-    this.userService.UpdateUser(this.user, results => {
+    this.user.updatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
+    this.userService.UpdateUser(this.user, _results => {
       this.loaderService.dismissLoader();
       this.goToUserList();
-    }, error => {
+    }, _error => {
 
       this.loaderService.dismissLoader();
     });
   }
 
-  Validate(): boolean {
+  validate(): boolean {
     if (this.user.FirstName == null || this.user.FirstName == undefined || this.user.FirstName == "") {
       return false;
     }
@@ -201,12 +204,13 @@ export class UpdateUserPage implements OnInit,AfterViewInit {
   }
 
   //Alerts
-  async presentAlert(headerTitle = this.languageService.translate('SIGN_UP.TITLE'), message = this.languageService.translate('SIGN_UP.REGISTRATION_FAILED')) {
+  async presentAlert(headerTitle = this.languageService.translate('SIGN_UP.TITLE'),
+  message = this.languageService.translate('SIGN_UP.REGISTRATION_FAILED')) {
     const alert = await this.alertController.create({
       cssClass: 'app-alert-class',
       header: headerTitle,
       subHeader: "",
-      message: message,
+      message,
       buttons: [this.languageService.translate('BUTTONS.OK')]
     });
     await alert.present();

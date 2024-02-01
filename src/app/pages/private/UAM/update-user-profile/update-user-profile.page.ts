@@ -194,7 +194,7 @@ export class UpdateUserProfilePage  implements OnInit,AfterViewInit {
   }
   UpdateUser(succes: (any), failure: (any)) {
     this.loaderService.customLoader("Saving User...", 10000);
-    this.user.UpdatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
+    this.user.updatedOn = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss', 'en-US', '+0530');
     this.userService.UpdateUserProfile(this.user, () => {
       this.loaderService.dismissLoader();
       this.GoToHomePage();

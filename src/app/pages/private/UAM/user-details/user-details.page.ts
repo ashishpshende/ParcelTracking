@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { Vehicle } from 'src/app/models/Vehicle';
 import { LoaderService } from 'src/app/services/loader/loader.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -11,19 +10,19 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./user-details.page.scss'],
 })
 export class UserDetailsPage implements OnInit,AfterViewInit {
-  public user:User
-  constructor(private userService:UserService,
-    private activatedRoute:ActivatedRoute,
+  public user: User;
+  constructor(private userService: UserService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private loaderService: LoaderService) {
 
-    if(this.userService.selectedUser!=null && this.userService.selectedUser!=undefined  )
+    if(this.userService.selectedUser)
     {
       this.user = this.userService.selectedUser;
     }
     else
     {
-      this.user = new User(JSON.parse("{}"));
+      this.user = new User(JSON.parse('{}'));
 
     }
 
@@ -33,16 +32,16 @@ export class UserDetailsPage implements OnInit,AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      var rowIndex = Number.parseInt(params["rowIndex"]);
-      this.loadUserDetails(rowIndex)
+      const id = Number.parseInt(params.Id,10);
+      this.loadUserDetails(id);
     });
   }
-  loadUserDetails(rowIndex:number)
+  loadUserDetails(id: number)
   {
-    this.loaderService.customLoader("Loading User Details...", 10000);
-    this.userService.readByIndex(rowIndex,resp => {
+    this.loaderService.customLoader('Loading User Details...', 10000);
+    this.userService.readById(id,resp => {
       this.user = new User(resp.result[0]);
-      this.user.Icon ="person-sharp";
+      this.user.Icon ='person-sharp';
       //this.userService.selectedUser.clear();
       this.loaderService.dismissLoader();
     }, error => {
@@ -52,23 +51,23 @@ export class UserDetailsPage implements OnInit,AfterViewInit {
   goToUserList()
   {
     this.userService.selectedUser = this.user;
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: {
         ts: new Date().getMilliseconds()
       }
     };
-    this.router.navigate(["home/user-list"], navigationExtras);
+    this.router.navigate(['home/user-list'], navigationExtras);
   }
-  EditButtonClicked()
+  editButtonClicked()
   {
     this.userService.selectedUser = this.user;
 
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: {
-        rowIndex: this.userService.selectedUser.rowIndex,
+        id: this.userService.selectedUser.id,
         ts: new Date().getMilliseconds()
       }
     };
-    this.router.navigate(["home/update-user"], navigationExtras);
+    this.router.navigate(['home/update-user'], navigationExtras);
   }
 }

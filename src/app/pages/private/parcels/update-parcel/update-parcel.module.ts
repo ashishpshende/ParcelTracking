@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ParcelUpdatePageRoutingModule } from './parcel-update-routing.module';
+import { UpdateParcelPageRoutingModule } from './update-parcel-routing.module';
 
-import { ParcelUpdatePage } from './parcel-update.page';
+import { UpdateParcelPage } from './update-parcel.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ParcelUpdatePageRoutingModule
+    UpdateParcelPageRoutingModule
   ],
-  declarations: [ParcelUpdatePage]
+  declarations: [UpdateParcelPage]
 })
-export class ParcelUpdatePageModule {}
+export class UpdateParcelPageModule {}
